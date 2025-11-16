@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
+  const router = useRouter();
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -20,12 +23,18 @@ export default function RegisterPage() {
       return;
     }
 
-    await fetch("/api/auth/register", {
+    const res = await fetch("/api/auth/register", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
-  }
 
+    if (res.ok) {
+      router.push("/login");
+    } else {
+      alert("Erro ao registrar");
+    }
+  }
   return (
     <div className="w-full h-screen flex">
       
