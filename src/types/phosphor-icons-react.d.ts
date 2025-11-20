@@ -1,7 +1,3 @@
-// Declarações para `@phosphor-icons/react` permitindo props extras
-// (útil para permitir `provider`, `onClick` direto no ícone, etc.)
-// Nota: isso permite props arbitrárias nos IconProps — é uma solução prática
-// para remover o erro de tipagem ao passar props customizadas aos ícones.
 
 import * as React from "react";
 

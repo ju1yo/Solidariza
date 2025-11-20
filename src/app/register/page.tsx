@@ -148,7 +148,9 @@ export default function RegisterWizard() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => null);
-        setError(data?.error || "Erro ao criar conta.");
+        // read message (server uses `message`) or `error` if present
+        const message = data?.message || data?.error || "Erro ao criar conta.";
+        setError(message);
         setLoading(false);
         return;
       }
