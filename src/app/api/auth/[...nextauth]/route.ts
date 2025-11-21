@@ -37,7 +37,7 @@ const handler = NextAuth({
 
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.role = user.role; // user comes from authorize()
+      if (user) token.role = user.role;
       return token;
     },
     async session({ session, token }) {

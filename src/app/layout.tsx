@@ -8,11 +8,7 @@ export const metadata: Metadata = {
   description: "Junte-se ao Solidariza e faça parte de uma rede que espalha cuidado e esperança.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
       <body>

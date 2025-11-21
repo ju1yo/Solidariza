@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -35,9 +34,7 @@ export default function LoginPage() {
 
   return (
     <div className="w-full h-screen flex">
-
       <div className="w-1/2 bg-gray-50 flex flex-col justify-center items-center p-12">
-
         <h2 className="text-3xl font-bold text-blue-500 mb-6">Fazer Login</h2>
 
         {error && (
