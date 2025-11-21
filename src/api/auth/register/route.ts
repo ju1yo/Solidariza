@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+// solidariza/src/api/auth/register/route.ts
+>>>>>>> main
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { prisma } from "@/lib/prisma";
@@ -97,4 +101,8 @@ export async function POST(req: Request) {
       { status: 500 }
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

@@ -14,9 +14,25 @@ model User {
   email     String   @unique
   password  String
   role      String   @default("user")
+<<<<<<< HEAD
   category  String?  
+=======
+  foto_perfil String?
+  bio         String?  @db.Text
+  telefone    String?
+  category    String?
+>>>>>>> main
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  
   requests  Request[]
+  
+  
+  messagesSent       Message[]      @relation("SentMessages")
+  messagesReceived   Message[]      @relation("ReceivedMessages")
+  conversationsUser1 Conversation[] @relation("User1Conversations")
+  conversationsUser2 Conversation[] @relation("User2Conversations")
 }
 
 model Request {
@@ -30,4 +46,41 @@ model Request {
   userId      String
   user        User     @relation(fields: [userId], references: [id])
   createdAt   DateTime @default(now())
+}
+
+
+
+model Conversation {
+  id           String   @id @default(cuid())
+  user1Id      String
+  user2Id      String
+  lastMessage  String?  @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user1    User      @relation("User1Conversations", fields: [user1Id], references: [id], onDelete: Cascade)
+  user2    User      @relation("User2Conversations", fields: [user2Id], references: [id], onDelete: Cascade)
+  messages Message[]
+
+  @@unique([user1Id, user2Id])
+  @@map("conversations")
+}
+
+model Message {
+  id             String   @id @default(cuid())
+  conversationId String
+  senderId       String
+  receiverId     String
+  message        String   @db.Text
+  read           Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       User         @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver     User         @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+  @@index([senderId])
+  @@index([receiverId])
+  @@map("messages")
 }
