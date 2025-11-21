@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-<<<<<<< HEAD
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -18,10 +17,6 @@ const SocialLoginButton = ({ icon: Icon, provider, className, onClick }: any) =>
     <Icon className="w-6 h-6 text-gray-600" />
   </button>
 );
-=======
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
->>>>>>> main
 
 export default function LoginPage() {
   const router = useRouter();
@@ -44,11 +39,7 @@ export default function LoginPage() {
     });
 
     if (res?.error) {
-<<<<<<< HEAD
       setError("Credenciais inválidas. Por favor, tente novamente.");
-=======
-      setError("Credenciais inválidas");
->>>>>>> main
       return;
     }
 
@@ -63,7 +54,6 @@ export default function LoginPage() {
 
   return (
     <div className="w-full h-screen flex">
-<<<<<<< HEAD
       {/* ==================================================
         Lado Esquerdo: Formulário de Login (Branco/Cinza)
         ==================================================
@@ -139,47 +129,11 @@ export default function LoginPage() {
           {/* Ajuste o src/alt conforme sua imagem de logo/ícone */}
           <span className="text-white">Solidariza <Image src="/logo_no_bg.png" alt="logo do sistema" width={25} height={25}></Image></span> 
         </div>
-=======
-      <div className="w-1/2 bg-gray-50 flex flex-col justify-center items-center p-12">
-        <h2 className="text-3xl font-bold text-blue-500 mb-6">Fazer Login</h2>
-
-        {error && (
-          <div className="mb-4 text-red-600 p-2 bg-red-100 rounded-lg w-full max-w-md text-center">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={submit} className="w-full max-w-md flex flex-col gap-4">
-          <input
-            className="w-full p-4 bg-white shadow rounded-xl"
-            placeholder="Email"
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-          />
-
-          <input
-            className="w-full p-4 bg-white shadow rounded-xl"
-            placeholder="Senha"
-            type="password"
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-          />
-
-          <button
-            className="mt-4 bg-blue-500 text-white p-4 rounded-xl text-lg hover:bg-blue-600 transition"
-          >
-            Login
-          </button>
-        </form>
-      </div>
-
-      <div className="w-1/2 bg-gradient-to-b from-blue-400 to-blue-600 text-white flex flex-col justify-center p-16">
-        <h1 className="text-5xl font-bold mb-6">Seja Bem Vindo</h1>
->>>>>>> main
 
         {/* Conteúdo Central */}
         <div className="relative z-10 center">
           <h1 className="text-5xl font-extrabold mb-6">Seja Bem Vindo</h1>
 
-<<<<<<< HEAD
           <p className="text-lg max-w-sm mb-10 opacity-90 leading-relaxed">
             Junte-se ao Solidariza e faça parte de uma rede que espalha cuidado e esperança.
             Faça login ou cadastre-se para começar a ajudar!
@@ -204,14 +158,6 @@ export default function LoginPage() {
         
           />
         </div>
-=======
-        <a
-          href="/resgister"
-          className="border-white border px-10 py-3 rounded-xl text-lg hover:bg-white hover:text-blue-600 transition w-fit"
-        >
-          Fazer Registro
-        </a>
->>>>>>> main
       </div>
     </div>
   );
