@@ -33,8 +33,24 @@ export default function LoginPage() {
     router.push("/dashboard");
   }
 
+  // Função fictícia para login social, você deve implementar a lógica real
+  const handleSocialLogin = (provider: string) => {
+    // Ex: signIn(provider);
+    alert(`Tentativa de Login com ${provider}. Implementar lógica real.`);
+  };
+
   return (
     <div className="w-full h-screen flex">
+      {/* ==================================================
+        Lado Esquerdo: Formulário de Login (Branco/Cinza)
+        ==================================================
+      */}
+      <div className="w-1/2 bg-white flex flex-col justify-center items-center p-12">
+        <div className="w-full max-w-md">
+          {/* Título de Login */}
+          <h2 className="text-3xl font-bold text-gray-700 mb-10 text-center">
+            Fazer Login
+          </h2>
 
       <div className="w-1/2 bg-gray-50 flex flex-col justify-center items-center p-12">
 
@@ -71,17 +87,34 @@ export default function LoginPage() {
       <div className="w-1/2 bg-gradient-to-b from-blue-400 to-blue-600 text-white flex flex-col justify-center p-16">
         <h1 className="text-5xl font-bold mb-6">Seja Bem Vindo</h1>
 
-        <p className="text-lg max-w-md mb-10">
-          Junte-se ao Solidariza e faça parte de uma rede que espalha cuidado e esperança.
-          Faça login ou registre-se para começar a ajudar!
-        </p>
+        {/* Conteúdo Central */}
+        <div className="relative z-10 center">
+          <h1 className="text-5xl font-extrabold mb-6">Seja Bem Vindo</h1>
 
-        <a
-          href="/register"
-          className="border-white border px-10 py-3 rounded-xl text-lg hover:bg-white hover:text-blue-600 transition w-fit"
-        >
-          Fazer Registro
-        </a>
+          <p className="text-lg max-w-sm mb-10 opacity-90 leading-relaxed">
+            Junte-se ao Solidariza e faça parte de uma rede que espalha cuidado e esperança.
+            Faça login ou cadastre-se para começar a ajudar!
+          </p>
+
+          <a
+            href="/register"
+            className="border-2 border-white px-10 py-3 rounded-xl text-lg font-semibold hover:bg-white hover:text-blue-700 transition duration-200 ease-in-out w-fit shadow-md"
+          >
+            Fazer Registro
+          </a>
+        </div>
+        
+     
+        <div className="relative h-screen inset-20 w-2/9">
+          
+          <Image 
+            src="/illustration-login.png" 
+            alt="Ilustração de boas-vindas" 
+            layout="fill"
+            objectFit="contain" // Ajuste conforme a necessidade
+        
+          />
+        </div>
       </div>
     </div>
   );
