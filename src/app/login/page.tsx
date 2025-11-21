@@ -77,7 +77,7 @@ export default function LoginPage() {
         </p>
 
         <a
-          href="/register"
+          href="/resgister"
           className="border-white border px-10 py-3 rounded-xl text-lg hover:bg-white hover:text-blue-600 transition w-fit"
         >
           Fazer Registro

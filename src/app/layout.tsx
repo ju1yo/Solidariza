@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import "./globals.css"; // Certifique-se de que este arquivo existe
+import { Toaster } from "react-hot-toast";
+import "./globals.css";
+import Providers from "@/components/providers/SessionProvider";
 
 export const metadata: Metadata = {
   title: "Solidariza",
@@ -13,7 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        <Providers>
+          <Toaster position="top-right" />
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 }
