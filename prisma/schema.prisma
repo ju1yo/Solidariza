@@ -14,14 +14,10 @@ model User {
   email     String   @unique
   password  String
   role      String   @default("user")
-<<<<<<< HEAD
   category  String?  
-=======
   foto_perfil String?
   bio         String?  @db.Text
   telefone    String?
-  category    String?
->>>>>>> main
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
