@@ -20,7 +20,9 @@ export default function Header() {
     <header className="w-full bg-[#7A0006] px-10 py-4 flex items-center justify-between">
       {/* LOGO */}
       <div className="flex items-center gap-2">
-        <Image src="/logo_no_bg.png" alt="Logo" width={50} height={50} />
+        <Link href="/home">
+          <Image src="/logo_no_bg.png" alt="Logo" width={50} height={50} />
+        </Link>
       </div>
 
       {/* MENU LINKS */}
@@ -34,7 +36,7 @@ export default function Header() {
         <Link href="/solicitacoes">
         <i className="bi bi-columns-gap" style={{ fontSize: "20px",background:"white", padding:"10px", borderRadius:"50%"}}></i>
         </Link>
-        <Link href="/">
+        <Link href="/dashboard">
         <i className="bi bi-house" style={{ fontSize: "20px",background:"white", padding:"10px", borderRadius:"50%"}}></i>
         </Link>
       </div>
