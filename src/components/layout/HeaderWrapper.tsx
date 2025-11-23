@@ -25,7 +25,7 @@ export default function Header() {
 
       {/* MENU LINKS */}
       <div className="flex gap-10 items-center">
-        <Link href="/feed">
+        <Link href="/chat">
         <i className="bi bi-chat-square-text" style={{ fontSize: "20px", background:"white", padding:"10px", borderRadius:"50%" }}></i>
         </Link>
         <Link href="/perfil">
