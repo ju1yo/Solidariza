@@ -33,7 +33,7 @@ export default function Header() {
         <Link href="/perfil">
         <i className="bi bi-person-fill" style={{ fontSize: "20px",background:"white", padding:"10px", borderRadius:"50%" }}></i>
         </Link>
-        <Link href="/solicitacoes">
+        <Link href="/registrationHelpRequest">
         <i className="bi bi-columns-gap" style={{ fontSize: "20px",background:"white", padding:"10px", borderRadius:"50%"}}></i>
         </Link>
         <Link href="/dashboard">
