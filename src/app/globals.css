@@ -37,3 +37,11 @@ body {
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.35);
 }
 
+.list-icon {
+  @apply list-none pl-6 bg-no-repeat bg-left;
+  background-image: url('/list-icon.svg');
+  background-size: 16px 16px;
+}
+
+
+
