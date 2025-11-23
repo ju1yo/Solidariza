@@ -1,9 +1,20 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();
+  const { data: session, status } = useSession();
+
+  // Função de redirecionamento segura
+  const handleRedirect = (pathIfLoggedIn: string) => {
+    if (status === "authenticated") {
+      router.push(pathIfLoggedIn);
+    } else {
+      router.push("/login");
+    }
+  };
 
   return (
     <main className="w-full flex flex-col items-center text-[#1a1a1a]">
@@ -23,7 +34,10 @@ export default function Home() {
           </p>
 
           <div>
-            <button className="btn-home" onClick={() => router.push("/login")}>
+            <button
+              className="btn-home"
+              onClick={() => handleRedirect("/solicitacoes")}
+            >
               Quero ajudar!
             </button>
           </div>
@@ -50,7 +64,6 @@ export default function Home() {
           {/* Card Ajuda */}
           <div className="bg-[#114A70] shadow-md rounded-xl overflow-hidden">
             <img src="/ajuda-image.png" alt="Ajudar" className="w-full" />
-
             <div className="p-6">
               <p className="mt-5 text-sm text-white font-semibold">
                 Você pode ser a <span className="especial-gradient">Esperança</span> de alguém! Doe seu tempo,
@@ -58,7 +71,10 @@ export default function Home() {
                 humano e solidário. Clique e faça parte dessa transformação.
               </p>
 
-              <button className="btn-home" onClick={() => router.push("/login")}>
+              <button
+                className="btn-home"
+                onClick={() => handleRedirect("/solicitacoes")}
+              >
                 Quero ajudar!
               </button>
             </div>
@@ -67,7 +83,6 @@ export default function Home() {
           {/* Card Pedir Ajuda */}
           <div className="bg-[#81000B] shadow-md rounded-xl overflow-hidden">
             <img src="/pedir-image.png" alt="Pedir Ajuda" className="w-full" />
-
             <div className="p-6">
               <p className="mt-5 text-sm text-white font-semibold">
                 Está passando por um momento difícil? Você não está sozinho.
@@ -76,7 +91,10 @@ export default function Home() {
                 Clique e encontre a ajuda que você precisa.
               </p>
 
-              <button className="btn-home" onClick={() => router.push("/login")}>
+              <button
+                className="btn-home"
+                onClick={() => handleRedirect("/solicitacoes")}
+              >
                 Preciso de ajuda!
               </button>
             </div>
@@ -94,7 +112,7 @@ export default function Home() {
         <div className="text-right w-full max-w-6xl">
           <button
             className="font-bold flex items-center gap-1 ml-auto"
-            onClick={() => router.push("/unauthorized")}
+            onClick={() => handleRedirect("/solicitacoes")}
           >
             Veja todos os Pedidos de ajuda <img src="/arrow-circle-icon.png" alt="icone-seta" />
           </button>
@@ -141,8 +159,6 @@ export default function Home() {
       {/* --- FOOTER --- */}
       <footer className="w-full bg-[#7A000A] text-white">
         <div className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 items-center">
-
-          {/* --- LOGO + TEXTO --- */}
           <div className="flex flex-col gap-5 items-start">
             <div className="flex items-start gap-3">
               <img src="/icon-footer.png" alt="Logo Solidariza" className="w-8 h-8" />
@@ -161,17 +177,12 @@ export default function Home() {
             </p>
           </div>
 
-          {/* --- ESPAÇO CENTRAL PARA LINHA + COPYRIGHT --- */}
           <div className="flex flex-col items-center mt-6 md:mt-0 md:col-span-2">
-            {/* --- LINHA CENTRAL --- */}
             <div className="w-full max-w-[300px] h-px bg-white opacity-40 mb-4" />
-
-            {/* --- COPYRIGHT --- */}
             <p className="text-[10px] font-semibold tracking-wide text-center">
               © SOLIDARIZA | TODOS OS DIREITOS RESERVADOS
             </p>
           </div>
-
         </div>
       </footer>
 
