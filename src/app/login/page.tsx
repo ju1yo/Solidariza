@@ -5,7 +5,7 @@ import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Mail, Lock, LogIn, UserPlus } from "lucide-react"; // Usando ícones Lucide para Email/Senha/Botões
-import {GoogleLogo, FacebookLogo} from "@phosphor-icons/react";
+import { GoogleLogo, FacebookLogo } from "@phosphor-icons/react";
 // Componente para o botão de login social (Google e Facebook)
 const SocialLoginButton = ({ icon: Icon, provider, className, onClick }: any) => (
   <button
@@ -35,15 +35,15 @@ export default function LoginPage() {
     const res = await signIn("credentials", {
       email: form.email,
       password: form.password,
-      redirect: false,
+      callbackUrl: "/dashboard",
+      // redirect: false,
     });
 
     if (res?.error) {
       setError("Credenciais inválidas. Por favor, tente novamente.");
-      return;
     }
 
-    router.push("/dashboard");
+    // router.push("/dashboard");
   }
 
   // Função fictícia para login social, você deve implementar a lógica real
@@ -67,9 +67,9 @@ export default function LoginPage() {
 
           {/* Botões de Login Social (Google e Facebook) */}
           <div className="flex justify-center items-center gap-6 mb-8">
-            
+
             <GoogleLogo provider="Google" width={35} height={35} color="#2a65e5" onClick={() => handleSocialLogin("google")} className="bg-white" />
-         
+
             <FacebookLogo provider="Facebook" width={35} height={35} color="#2a65e5" onClick={() => handleSocialLogin("facebook")} className="bg-white" />
           </div>
 
@@ -127,7 +127,7 @@ export default function LoginPage() {
         {/* Logo/Marca no canto superior direito (Fictício) */}
         <div className="absolute top-8 right-16 flex items-center text-lg font-bold">
           {/* Ajuste o src/alt conforme sua imagem de logo/ícone */}
-          <span className="text-white">Solidariza <Image src="/logo_no_bg.png" alt="logo do sistema" width={25} height={25}></Image></span> 
+          <span className="text-white">Solidariza <Image src="/logo_no_bg.png" alt="logo do sistema" width={25} height={25}></Image></span>
         </div>
 
         {/* Conteúdo Central */}
@@ -146,16 +146,16 @@ export default function LoginPage() {
             Fazer Registro
           </a>
         </div>
-        
-     
+
+
         <div className="relative h-screen inset-20 w-2/9">
-          
-          <Image 
-            src="/illustration-login.png" 
-            alt="Ilustração de boas-vindas" 
+
+          <Image
+            src="/illustration-login.png"
+            alt="Ilustração de boas-vindas"
             layout="fill"
             objectFit="contain" // Ajuste conforme a necessidade
-        
+
           />
         </div>
       </div>

@@ -24,6 +24,7 @@ model User {
   
   requests  Request[]
   
+  helpRequests HelpRequest[]
   
   messagesSent       Message[]      @relation("SentMessages")
   messagesReceived   Message[]      @relation("ReceivedMessages")
@@ -79,4 +80,21 @@ model Message {
   @@index([senderId])
   @@index([receiverId])
   @@map("messages")
+}
+
+model HelpRequest {
+  id                      String   @id @default(cuid())
+  title                   String
+  description             String
+  location                String
+  items                   Json // Armazena a lista de itens selecionados
+  customItemsDescription  String?
+  helpType                String
+  imageUrl                String?
+
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
