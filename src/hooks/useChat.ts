@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import type { Message, Conversation } from '@/types/chat';
 
 export function useChat() {
-  const { socket } = useSocket();
+  const socket = useSocket();
   const { data: session } = useSession();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
