@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  password     String
+  role         String   @default("user")
+  category     String?
+  profileImage String?
+  bio          String?  @db.Text
+  phoneNumber  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+
+  // requests  Request[] // DELETE
+
+  helpRequests HelpRequest[]
+
+  messagesSent       Message[]      @relation("SentMessages")
+  messagesReceived   Message[]      @relation("ReceivedMessages")
+  conversationsUser1 Conversation[] @relation("User1Conversations")
+  conversationsUser2 Conversation[] @relation("User2Conversations")
+}
+
+// model Request { ... } // DELETED
+
+model Conversation {
+  id           String   @id @default(cuid())
+  user1Id      String
+  user2Id      String
+  lastMessage  String?  @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user1    User      @relation("User1Conversations", fields: [user1Id], references: [id], onDelete: Cascade)
+  user2    User      @relation("User2Conversations", fields: [user2Id], references: [id], onDelete: Cascade)
+  messages Message[]
+
+  @@unique([user1Id, user2Id])
+  @@map("conversations")
+}
+
+model Message {
+  id             String   @id @default(cuid())
+  conversationId String
+  senderId       String
+  receiverId     String
+  message        String   @db.Text
+  read           Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       User         @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver     User         @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+  @@index([senderId])
+  @@index([receiverId])
+  @@map("messages")
+}
+
+model HelpRequest {
+  id                      String   @id @default(cuid())
+  title                   String
+  description             String
+  location                String
+  items                   Json // Armazena a lista de itens selecionados
+  customItemsDescription  String?
+  helpType                String
+  imageUrl                String?
+
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  status    String   @default("Pendente")
+}
