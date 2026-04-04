@@ -60,4 +60,5 @@ vi.mock('next-auth/react', () => ({
   signOut: vi.fn(),
   getSession: vi.fn(),
 }))
-
+// Mock window.scrollTo
+window.scrollTo = vi.fn()

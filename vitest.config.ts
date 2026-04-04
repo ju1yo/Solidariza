@@ -13,9 +13,6 @@ export default defineConfig({
     },
     // Forçar execução sequencial para evitar conflitos no SQLite
     fileParallelism: false,
-    threads: {
-      singleThread: true,
-    },
     sequence: {
       concurrent: false,
     },

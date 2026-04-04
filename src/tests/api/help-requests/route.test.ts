@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { GET, POST } from '@/app/api/help-requests/route'
 import { prisma } from '@/lib/prisma'
 import { getServerSession } from 'next-auth'
+import { NextRequest } from 'next/server'
 
 vi.mock('next-auth')
 
@@ -19,7 +20,7 @@ describe('API Route: /api/help-requests', () => {
       data: { title: 'R1', description: 'D', location: 'L', items: '[]', helpType: 'T', authorId: userId }
     })
 
-    const response = await GET(new Request('http://localhost:3000/api/help-requests'))
+    const response = await GET(new NextRequest('http://localhost:3000/api/help-requests'))
     const data = await response.json()
 
     expect(response.status).toBe(200)
@@ -39,7 +40,7 @@ describe('API Route: /api/help-requests', () => {
       helpType: 'Alimentos'
     }
 
-    const req = new Request('http://localhost:3000/api/help-requests', {
+    const req = new NextRequest('http://localhost:3000/api/help-requests', {
       method: 'POST',
       body: JSON.stringify(body)
     })
@@ -56,7 +57,7 @@ describe('API Route: /api/help-requests', () => {
   it('should return 401 for POST when not authenticated', async () => {
     vi.mocked(getServerSession).mockResolvedValue(null)
 
-    const req = new Request('http://localhost:3000/api/help-requests', {
+    const req = new NextRequest('http://localhost:3000/api/help-requests', {
       method: 'POST',
       body: JSON.stringify({})
     })

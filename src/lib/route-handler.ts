@@ -1,12 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { AppError } from "@/core/domain/errors/domain.error";
 import { z } from "zod";
 import { ApiResponse } from "@/core/dtos/api-response.dto";
 
-type HandlerFunction<T> = (req: Request, ...args: any[]) => Promise<T>;
+type HandlerFunction<T> = (req: NextRequest, ...args: any[]) => Promise<T>;
 
 export function createHandler<T>(handler: HandlerFunction<T>) {
-  return async (req: Request, ...args: any[]): Promise<NextResponse<ApiResponse<T>>> => {
+  return async (req: NextRequest, ...args: any[]): Promise<NextResponse<ApiResponse<T>>> => {
     try {
       const data = await handler(req, ...args);
       return NextResponse.json({

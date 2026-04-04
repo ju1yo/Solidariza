@@ -57,7 +57,7 @@ export default function HelpRequestMap({ markers }: Props) {
         border: "3px solid white", 
         boxShadow: "0 10px 15px -3px rgba(0,0,0,0.2)",
         display: "flex",
-        alignTo: "center",
+        alignItems: "center",
         justifyContent: "center",
         position: "relative"
       }}>
