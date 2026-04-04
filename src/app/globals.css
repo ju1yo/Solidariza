@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+@layer base {
+  :root {
+    /* ── shadcn/ui design tokens ── */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 11%;
+    --primary: 353 82% 57%;       /* Solidariza Red #e63946 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 186 30% 76%;    /* Solidariza Blue #a8dadc */
+    --secondary-foreground: 0 0% 11%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 353 82% 57%;
+    --radius: 0.625rem;
+
+    /* ── Solidariza brand palette ── */
+    --solidariza-red: #FF4C5B;
+    --solidariza-dark-red: #7A0006;
+    --solidariza-accent-red: #81000B;
+    --solidariza-blue: #5DADE2;
+    --solidariza-dark-blue: #114A70;
+    --solidariza-login-blue-from: #3b82f6;
+    --solidariza-login-blue-to: #1d4ed8;
+
+    /* ── Legacy palette (compat) ── */
+    --color-primary: #FF4C5B;
+    --color-primary-dark: #114A70;
+    --color-accent: #81000B;
+    --color-neutral-dark: #49263E;
+    --color-background-dark: #21111D;
+    --color-text-primary: #1D1D1B;
+    --color-text-secondary: #808080;
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 213 31% 91%;
+    --card: 222 47% 11%;
+    --card-foreground: 213 31% 91%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 213 31% 91%;
+    --primary: 353 82% 57%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 222 47% 11%;
+    --secondary-foreground: 213 31% 91%;
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+    --ring: 353 82% 57%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+  }
+}
+
+/* ── Solidariza custom utilities ── */
+.especial-gradient {
+  @apply font-extrabold bg-gradient-to-r from-blue-500 to-pink-500 bg-clip-text text-transparent;
+}
+
+.btn-home {
+  @apply inline-block mt-6 bg-white text-black px-10 py-3 text-sm font-bold rounded-[5px];
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.35);
+}
+
+.list-icon {
+  @apply list-none pl-6 bg-no-repeat bg-left;
+  background-image: url("/list-icon.svg");
+  background-size: 16px 16px;
+}

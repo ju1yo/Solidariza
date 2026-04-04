@@ -1,0 +1,160 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/@prisma/client-test"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("TEST_DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  password     String
+  role         String   @default("usuario")
+  category     String?
+  profileImage String?
+  bio          String?
+  phoneNumber  String?
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  helpRequests       HelpRequest[]
+  donations          Donation[]     @relation("DonorDonations")
+  notifications      Notification[]
+  ratingsGiven       Rating[]       @relation("RaterRatings")
+  ratingsReceived    Rating[]       @relation("RatedRatings")
+  comments           Comment[]
+  messagesSent       Message[]      @relation("SentMessages")
+  messagesReceived   Message[]      @relation("ReceivedMessages")
+  conversationsUser1 Conversation[] @relation("User1Conversations")
+  conversationsUser2 Conversation[] @relation("User2Conversations")
+}
+
+model HelpRequest {
+  id                     String   @id @default(cuid())
+  title                  String
+  description            String
+  location               String
+  latitude               Float?
+  longitude              Float?
+  items                  String   // SQLite maps Json to String
+  customItemsDescription String?
+  helpType               String
+  imageUrl               String?
+  status                 String   @default("Pendente")
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+
+  donations Donation[]
+  comments  Comment[]
+
+  @@index([authorId])
+  @@index([status])
+  @@index([helpType])
+}
+
+model Conversation {
+  id          String   @id @default(cuid())
+  user1Id     String
+  user2Id     String
+  lastMessage String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user1    User      @relation("User1Conversations", fields: [user1Id], references: [id], onDelete: Cascade)
+  user2    User      @relation("User2Conversations", fields: [user2Id], references: [id], onDelete: Cascade)
+  messages Message[]
+
+  @@unique([user1Id, user2Id])
+  @@map("conversations")
+}
+
+model Message {
+  id             String   @id @default(cuid())
+  conversationId String
+  senderId       String
+  receiverId     String
+  message        String
+  read           Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender       User         @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver     User         @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+  @@index([senderId])
+  @@index([receiverId])
+  @@map("messages")
+}
+
+model Donation {
+  id            String   @id @default(cuid())
+  helpRequestId String
+  donorId       String
+  status        String   @default("oferecido")
+  message       String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  helpRequest HelpRequest @relation(fields: [helpRequestId], references: [id], onDelete: Cascade)
+  donor       User        @relation("DonorDonations", fields: [donorId], references: [id])
+  rating      Rating?
+
+  @@index([helpRequestId])
+  @@index([donorId])
+  @@map("donations")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  title     String
+  body      String
+  read      Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read])
+  @@map("notifications")
+}
+
+model Rating {
+  id         String   @id @default(cuid())
+  donationId String   @unique
+  raterId    String
+  ratedId    String
+  score      Int
+  comment    String?
+  createdAt  DateTime @default(now())
+
+  donation Donation @relation(fields: [donationId], references: [id], onDelete: Cascade)
+  rater    User     @relation("RaterRatings", fields: [raterId], references: [id])
+  rated    User     @relation("RatedRatings", fields: [ratedId], references: [id])
+
+  @@map("ratings")
+}
+
+model Comment {
+  id            String   @id @default(cuid())
+  helpRequestId String
+  authorId      String
+  content       String
+  createdAt     DateTime @default(now())
+
+  helpRequest HelpRequest @relation(fields: [helpRequestId], references: [id], onDelete: Cascade)
+  author      User        @relation(fields: [authorId], references: [id])
+
+  @@index([helpRequestId])
+  @@map("comments")
+}
